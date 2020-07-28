@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './styles.module.css'
+import KeyboardComponent from './KeyboardComponent';
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+export const CustomKeyboard = () => {
+  return (<div>
+        <KeyboardComponent/>
+  </div>)
+};

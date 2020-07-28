@@ -1,9 +1,173 @@
-/* add css module styles here (optional) */
-
-.test {
-  margin: 2em;
-  padding: 0.5em;
-  border: 2px solid #000;
-  font-size: 2em;
+.keypad{
+  width: 100vw;
+  padding-bottom: 1vh;
+  padding-top: 2vh;
+  height: fit-content;
+  /*position: fixed;*/
+  /*bottom: 0;*/
   text-align: center;
+  box-sizing: border-box;
+  border-top: solid thin #bbb;
+}
+
+.keyboard-body {
+  max-width: 400px;
+  margin: 0;
+  text-align: center;
+}
+
+.revealKB {
+  animation: revealkbAnimiation 200ms linear;
+}
+
+.kbhide {
+  animation: hidekbAnimiation 200ms linear;
+  transform: translateY(50vh);
+
+}
+
+
+.kbStill{
+  transform: translateY(0);
+  opacity: 1;
+}
+.keyimg{
+  width: 80%;
+  margin: auto;
+}
+
+
+@keyframes hidekbAnimiation {
+  0% {
+
+    transform: translateY(0);
+    opacity: 1;
+  }
+  99% {
+
+    transform: translateY(35vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(35vh);
+    opacity: 0;
+    display: none;
+  }
+}
+
+
+@keyframes revealkbAnimiation {
+  0% {
+    transform: translateY(35vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+}
+
+.button {
+  display: block;
+  background-color: #E7EAED;
+
+}
+
+
+.button .pressedWrapper {
+  width: 8vw;
+  /*display: inline-block;*/
+  display: inline-flex;
+  border: none;
+  margin: 1.5vw 0.75vw;
+}
+
+.button .pressedWrapper button{
+  padding-left: 0 !important;
+  max-width: 8vw;
+  padding-right: 0 !important;
+}
+.button button, .key{
+  border-radius: 1.5vw;
+  border: none;
+  width: 8vw;
+  height: 10.5vw;
+  /*margin: 0 0.75vw;*/
+  box-shadow: 0 1px 1px #202020;
+  font-size: 5vw;
+  position: inherit;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-weight: 300;
+}
+.button button:focus{
+  outline: none;
+}
+.button button:active{
+  background: #7f7f7f !important
+}
+.fix-bottom{
+  position: fixed;
+  bottom: 0;
+}
+.noneTextKeyStyle{
+  background: #FFFFFF;
+}
+.pressedKeyBox{
+  border-radius: 1.5vw 1.5vw 0 0;
+  position: absolute;
+  width: 8vw;
+  padding-top: 1em;
+  height: 14vw;
+  background: #7f7f7f;
+  box-shadow: 0px -1px 1px rgba(32, 32, 32, 0.64);
+  margin: -5vh 0 0 0;
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+.darkKey{
+  background: #7f7f7f !important;
+}
+.charKey{
+  cursor: pointer;
+}
+.capsLock{
+  border-bottom: solid 2px black ;
+  width: 1em;
+  margin: auto;
+}
+.absolute{
+  position: absolute;
+}
+.SMImage{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+}
+.center-text{
+  margin: auto;
+  font-weight: lighter;
+  width: 90vw;
+  text-align: center;
+}
+.keyicon{
+  background-size: 75%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.kb_bottom_row, .kb_scnd_bottom_row{
+  margin: 1.5vw 0;
+  height: fit-content;
+  text-align: center;
+  display: inline-flex;
+}
+.kb_bottom_row button{
+  margin: 0 0.75vw;
 }
