@@ -16,7 +16,7 @@ class TextKeyButton extends Component {
         let keyName = this.props.letter;
         return(
 
-            <div onClick={e => this.props.onClick(keyName)} className={styles.pressedWrapper}>
+            <div onClick={e => this.props.onClick(keyName, this.props.getResult)} className={styles.pressedWrapper}>
                 <div key={this.props.letter} id={this.props.letter + 'pressed'} className={this.getClasses()}>{this.props.letter}</div>
                 {/*<button name={this.props.letter} onMouseDown={}>{this.props.letter}</button>*/}
                 <button name={this.props.letter}
@@ -31,6 +31,8 @@ class TextKeyButton extends Component {
 
         );
     }
+
+
 
     getClasses () {
         let classes = styles.pressedKeyBox + " ";

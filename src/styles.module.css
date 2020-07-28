@@ -10,6 +10,10 @@
   border-top: solid thin #bbb;
 }
 
+.bottom_fixed{
+  position: fixed;
+  bottom: 0;
+}
 .keyboard-body {
   max-width: 400px;
   margin: 0;
@@ -36,7 +40,28 @@
   margin: auto;
 }
 
+.suggestion_body {
+  height: 7vh;
+  background-color: #bbb;
+  width: 100vw;
+  text-align: center;
+  line-height: 2.5vh
+  /*position: relative;*/
+  /*bottom: 35vh;*/
+}
 
+.suggestion_body p {
+  font-size: 20px;
+  margin: 5px;
+  text-align: center;
+}
+
+.suggestion {
+  float: left;
+  width: 33.33%;
+  top: 50%;
+  transform: translateY(100%);
+}
 @keyframes hidekbAnimiation {
   0% {
 
@@ -45,20 +70,23 @@
   }
   99% {
 
-    transform: translateY(35vh);
+    transform: translateY(50vh);
     opacity: 0;
   }
   100% {
-    transform: translateY(35vh);
+    transform: translateY(50vh);
     opacity: 0;
     display: none;
   }
 }
 
+.bgWhite{
+  background: #ffffff;
+}
 
 @keyframes revealkbAnimiation {
   0% {
-    transform: translateY(35vh);
+    transform: translateY(50vh);
     opacity: 0;
   }
   100% {
@@ -170,4 +198,47 @@
 }
 .kb_bottom_row button{
   margin: 0 0.75vw;
+}
+
+.transY-10{
+  transform: translateY(-10px);
+}
+.padce{
+  padding: 0.5% 2.5%;
+  transform: translateY(0.5vw)!important;
+}
+.greywidekey{
+  width: 12vw !important;
+  height: 10.5vw;
+  border-radius: 1.5vw;
+  border: none;
+  box-shadow: 0px 1px 1px #202020;
+  display: inline-block;
+  background-color: #CBCED7;
+  line-height: 12vw;
+}
+.shiftAdjust{
+  display: block !important;
+  margin: 1.5vw 0 0 4vw !important;
+}
+.greywidekey:active{
+  background: #7f7f7f !important
+
+}
+.ce-adjust{
+  /*margin: 1.5vw 2vw !important;*/
+  box-sizing: border-box;
+  font-size: 150%;
+  line-height: 10vw;
+  transform: translateY(1.75vw);
+}
+.key{
+  display: inline-block;
+  padding: 3.18% 0;
+  box-sizing: border-box;
+  line-height: 100%;
+}
+.character{
+  list-style: none;
+  display: inline-block;
 }

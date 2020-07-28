@@ -2,18 +2,23 @@ import React, {Component} from 'react';
 import TextKeyButton from "./TextKeyButton";
 import { useDoubleTap } from "use-double-tap";
 import styles from './styles.module.css';
-
-
+import capsImg from './Images/caps.png';
+import shiftImg from './Images/shift.png';
+import shiftActiveImg from './Images/shiftActive.png';
+import CEImg from './Images/CE.png';
+import hideKBImdg from './Images/hideKB.png'
+let lastTap;
 class KeyboardComponent extends Component {
 
     constructor(props){
         super(props);
 
         this.state = {
-            visible : this.props.showHide,
+            visible : this.props.showKeyboard,
             fontCase : 'lowercase',
-            setshift : 'true',
-            capsLock : false
+            setshift : true,
+            capsLock : false,
+            result : this.props.resultText
         };
     }
 
@@ -42,14 +47,103 @@ class KeyboardComponent extends Component {
     };
 
     getStyle = (props) => {
-        let returnVal = (props.showHide ? styles.revealKB : styles.kbhide) + " ";
+        let returnVal = (props.showHide ? styles.revealKB  : styles.kbhide) + ' ';
         return returnVal;
     };
 
-    onClick =()=>{
+
+    onClick = (button) => {
+
+        switch(button) {
+            case "clear":
+                this.reset();
+                break;
+
+            case "CE":
+                this.props.backspace();
+                break;
+
+            case "space":
+                this.props.typeKey(' ');
+                break;
+
+            case "abc":
+                this.setState({
+                    fontCase: "lowercase"
+                });
+                break;
+
+            case "shift":
+                this.shift();
+                this.handleDoubleTap();
+                break;
+
+            case "123":
+                this.setState({
+                    fontCase: 'numsymb'
+                });
+                break;
+
+            case "symbols":
+                this.setState({
+                    fontCase: "symbols"
+                });
+                break;
+            case "kb":
+                this.props.toggleKB();
+                break;
+            case "enter":
+                this.reset();
+                break;
+            //if the button value hasn't matched any of the above criteria, do the below to enter a letter
+            default:
+                let shiftValue = this.state.setshift;
+                let capsValue = this.state.capsLock;
+                let caseValue = shiftValue ? 'lowercase' : this.state.fontCase;
+                caseValue = capsValue ? 'uppercase' : caseValue;
+                this.props.typeKey(button);
+                break;
+        }
+    };
+
+
+
+
+    //handles shift key
+    shift = () => {
+        let caps = this.state.capsLock;
+        if(caps){
+            this.setState({
+                fontCase :'lowercase',
+                setshift : false,
+                capsLock : false
+            })
+        }
+        else{
+            let newShift = !this.state.setshift;
+            let newCase = newShift ? 'uppercase' : 'lowercase';
+            this.setState({
+                fontCase : newCase,
+                setshift : newShift
+            })
+        }
 
     };
 
+    lastTap = null;
+    handleDoubleTap = () => {
+        const now = Date.now();
+        const DOUBLE_PRESS_DELAY = 300;
+        if (this.lastTap && (now - this.lastTap) < DOUBLE_PRESS_DELAY) {
+            this.setState({
+                capsLock : true,
+                fontCase : 'uppercase'
+            });
+        } else {
+            this.lastTap = now;
+        }
+
+    };
     render() {
 
 
@@ -66,14 +160,13 @@ class KeyboardComponent extends Component {
             width: '15vw',
             // transform: 'translateY(2vw)'
         };
-        const hidekb = {backgroundImage : "URL('Images/hideKB.png'",
-        };
+        const hidekb = <img src={hideKBImdg} className={styles.keyimg}/>;
 
-        const shift = <img src="Images/shiftActive.png" className={styles.keyimg}/>;
+        const shift = <img src={shiftActiveImg} className={styles.keyimg}/>;
 
-        const noshift = <img src="Images/shift.png" className={styles.keyimg}/>;
+        const noshift = <img src={shiftImg} className={styles.keyimg}/>;
 
-        const caps = <img src="Images/caps.png" className={styles.keyimg}/>;
+        const caps = <img src={capsImg} className={styles.keyimg}/>;
 
         const shiftSym = "=\\<";
 
@@ -116,27 +209,26 @@ class KeyboardComponent extends Component {
         // //to combat an undefined error appearing in App.js
 
 
-        let shiftKeyDisplay = this.props.setshift ? shift : noshift;
-        shiftKeyDisplay = this.props.capsLock ? caps : shiftKeyDisplay;
+        let shiftKeyDisplay = setshift ? shift : noshift;
+        shiftKeyDisplay = capsLock ? caps : shiftKeyDisplay;
         shiftKeyDisplay = fontCase === 'numsymb' ? shiftSym : shiftKeyDisplay;
         shiftKeyDisplay = fontCase === 'symbols' ? abcBtn : shiftKeyDisplay;
 
         let shiftRow = [];
-
         //loop through the number of items in the case list, adding jsx components based on rules
         for (let i in letters[fontCase]) {
             if((i>=19)&&(fontCase === 'lowercase' || fontCase === "uppercase")){
                 //add keys to list in correct order including line breaks and special keys
-                shiftRow.push(<TextKeyButton key={letters[fontCase][i]} onClick={this.onClick}
+                shiftRow.push(<TextKeyButton key={letters[fontCase][i]} typeKey = {this.props.typeKey} onClick={this.onClick}
                                              letter={letters[fontCase][i]}/>);
             }
             else if(i>19){
-                shiftRow.push(<TextKeyButton key={letters[fontCase][i]} onClick={this.onClick}
+                shiftRow.push(<TextKeyButton key={letters[fontCase][i]} typeKey = {this.props.typeKey} onClick={this.onClick}
                                              letter={letters[fontCase][i]}/>);
             }
             else{
                 //add keys to list in correct order including line breaks and special keys
-                letterButtonList.push(<TextKeyButton key={letters[fontCase][i]} onClick={this.onClick}
+                letterButtonList.push(<TextKeyButton key={letters[fontCase][i]} typeKey = {this.props.typeKey} onClick={this.onClick}
                                                      letter={letters[fontCase][i]}/>);
             }
 
@@ -156,7 +248,7 @@ class KeyboardComponent extends Component {
                     name={shiftName}
                     // className="keyicon greywidekey ce-adjust pressedWrapper"
                     className={styles.keyicon + " " +  styles.greywidekey + " " + styles.pressedWrapper}
-                    onClick={e => this.props.onClick(shiftName)}
+                    onClick={e => this.onClick(shiftName)}
                 >
                     {shiftKeyDisplay}
                 </button>
@@ -175,11 +267,11 @@ class KeyboardComponent extends Component {
                     // className="keyicon greywidekey ce-adjust pressedWrapper padce"
                     className={styles.keyicon+  "  " + styles.greywidekey+  "  " + styles.pressedWrapper}
                     name="CE"
-                    onClick={() => {this.props.onClick("CE")}}
+                    onClick={() => {this.onClick("CE")}}
                     // onMouseDown={this.backSpaceHold}
                     // onMouseUp={this.releaseBackSpace}
                 >
-                    <img className={styles.keyimg} src="Images/CE.png"/>
+                    <img className={styles.keyimg} src={CEImg}/>
                 </button>
 
 
@@ -189,22 +281,21 @@ class KeyboardComponent extends Component {
         }
 
 
-        console.log(letterButtonList);
 
         return (
-            <div className={this.getStyle(this.props) + this.props.classNameProp + " " + styles.button + " " + styles.keypad} ref="keypad" id="keypad">
+            <div className={this.getStyle(this.props) + " " + styles.button + " " + styles.keypad} ref="keypad" id="keypad">
                 {letterButtonList}
 
                 <div className={styles.kb_scnd_bottom_row}>
                     {shiftRow}
                 </div>
-                <div className="kb_bottom_row">
-                    <button className={styles.key + " " + styles.noneTextKeyStyle + " " +styles.greywidekey} name={abc123Btn} onClick={e => this.props.onClick(e.target.name)}>{keyboardSwitchDisplayName}</button>
-                    <button style={spaceBar} className={styles.key + " " + styles.noneTextKeyStyle} name="space" onClick={e => this.props.onClick(e.target.name)}>space</button>
-                    <button name="." className={styles.key + " " + styles.noneTextKeyStyle} onClick={e => this.props.onClick(e.target.name)}>.</button>
-                    <button name="kb" className={styles.key + " " + styles.noneTextKeyStyle + " " + styles.keyicon + " " + styles.greywidekey + this.props.hideKBStyle} onClick={e => {this.props.onClick(e.target.name);}}
-                            style={hidekb}
-                    > </button>
+                <div className={styles.kb_bottom_row}>
+                    <button className={styles.key + " " + styles.noneTextKeyStyle + " " +styles.greywidekey} name={abc123Btn} onClick={e => this.onClick(e.target.innerHTML)}>{keyboardSwitchDisplayName}</button>
+                    <button style={spaceBar} className={styles.key + " " + styles.noneTextKeyStyle} name="space" onClick={e => this.onClick(e.target.name)}>space</button>
+                    <button name="." className={styles.key + " " + styles.noneTextKeyStyle} onClick={e => this.onClick(e.target.name)}>.</button>
+                    <button name="kb" className={styles.noneTextKeyStyle + " " + styles.keyicon + " " + styles.greywidekey+ " "+ this.props.hideKBStyle} onClick={e => {this.onClick("kb");}}
+
+                    >{hidekb}</button>
                 </div>
             </div>
         );
