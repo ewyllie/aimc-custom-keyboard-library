@@ -106,8 +106,17 @@ As shown in the above example this allows you to use the same function both with
 The typeKeyFunction handles the output of the keyboard. This includes typing new characters and backspaces. This function must
  accept a string as this is the text outputted. In the above example this is shown n the UI using the state.
 
-####useTextSuggestions (required)
->function(string)
+####useTextSuggestions (optional)
+>boolean
+
+This boolean value should be set to true if you wish to use text suggestions. If omitted the suggestions will not be included by default.
+
+####suggestions (required if using text suggestions)
+>array [string, string, string]
+
+This prop should be an array of 3 strings, these strings will appear in the text suggestions panel. In the above example these values are hard coded but you may populate them
+using any method you choose. When a user selects a text suggestion any part-typed word will be removed and replaced by the text suggestion.
+
 
 ## License 
 
