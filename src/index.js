@@ -53,14 +53,14 @@ export class CustomKeyboard extends Component {
     render(){
         FastClick.attach(document.body);
 
-        let textSugs = this.props.useTextSuggestions ?
-            <TextRecComponent
-                showHide={this.state.showKeyboardVal}
-                suggestions={this.props.suggestions}
-                resultText = {this.props.resultText}
-                getResult={this.props.getResult}
-                typeKey={this.addChar}
-            />
+        let textSugs = this.props.showKeyboardVal && this.props.useTextSuggestions ?
+         <TextRecComponent
+        showHide={this.props.showKeyboardVal && this.props.useTextSuggestions}
+        suggestions={this.props.suggestions}
+        resultText = {this.props.resultText}
+        getResult={this.props.getResult}
+        typeKey={this.addChar}
+        />
             : '';
 
         return (<div className={styles.bottom_fixed}>
