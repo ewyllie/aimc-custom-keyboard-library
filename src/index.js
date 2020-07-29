@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import styles from './styles.module.css'
+import 'aimc-custom-keyboard/dist/index.css'
 import KeyboardComponent from './KeyboardComponent';
 import TextRecComponent from "./TextRecComponent";
 import FastClick from 'fastclick';
