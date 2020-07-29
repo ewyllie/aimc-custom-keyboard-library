@@ -86,13 +86,13 @@ For the custom keyboard component to function properly it will require values fo
 >string
 
 This is the initial string value for the text in the app. Usually this is an empty string, but in some cases you may 
-wish to start with a non-empty String.
+wish to start with a non-empty String. The keyboard will use this as a starting point, and any typed characters will be added to the end of it.
 
 #### showKeyboardVal (required)
 >boolean
 
-This is a true/false Boolean for whether or not the keyboard is visible. Passing 'true' here will reveal the keyboard
-and 'false' will hide it.
+This is a true/false value for whether or not the keyboard is visible. Passing 'true' here will reveal the keyboard
+and 'false' will hide it. This is primarily used to determine whether or not the keyboard is visible when your app first loads.
 
 #### showKeyboardFunction (required)
 >function()
@@ -104,7 +104,7 @@ As shown in the above example this allows you to use the same function both with
 >function(string)
 
 The typeKeyFunction handles the output of the keyboard. This includes typing new characters and backspaces. This function must
- accept a string as this is the text outputted. In the above example this is shown n the UI using the state.
+ accept a string as this is the text outputted. In the above example this is shown in the UI using the state.
 
 #### useTextSuggestions (optional)
 >boolean
