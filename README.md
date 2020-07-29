@@ -79,39 +79,39 @@ class App extends Component {
 export default App
 
 ```
-#Props
+# Props
 For the custom keyboard component to function properly it will require values for 5 props. these are as follows:
 
-####resultText (required)
+##### resultText (required)
 >string
 
 This is the initial string value for the text in the app. Usually this is an empty string, but in some cases you may 
 wish to start with a non-empty String.
 
-####showKeyboardVal (required)
+#### showKeyboardVal (required)
 >boolean
 
 This is a true/false Boolean for whether or not the keyboard is visible. Passing 'true' here will reveal the keyboard
 and 'false' will hide it.
 
-####showKeyboardFunction (required)
+#### showKeyboardFunction (required)
 >function()
 
 The function passed in the showKeyboardFunction prop will be assigned to the 'hide keyboard' (bottom row, far right) button on the keyboard. 
 As shown in the above example this allows you to use the same function both within the CustomKeyboard component and in your app to manage the visibility consistently.
 
-####typeKeyFunction (required)
+#### typeKeyFunction (required)
 >function(string)
 
 The typeKeyFunction handles the output of the keyboard. This includes typing new characters and backspaces. This function must
  accept a string as this is the text outputted. In the above example this is shown n the UI using the state.
 
-####useTextSuggestions (optional)
+#### useTextSuggestions (optional)
 >boolean
 
 This boolean value should be set to true if you wish to use text suggestions. If omitted the suggestions will not be included by default.
 
-####suggestions (required if using text suggestions)
+#### suggestions (required if using text suggestions)
 >array [string, string, string]
 
 This prop should be an array of 3 strings, these strings will appear in the text suggestions panel. In the above example these values are hard coded but you may populate them

@@ -4,7 +4,10 @@
   "description": "Custom keyboard for integradtion into mobile web apps.",
   "author": "ewyllie",
   "license": "MIT",
-  "repository": "aimc-custom-keyboard-library",
+  "repository": {
+    "type": "git",
+    "url": "aimc-custom-keyboard-library"
+  },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
@@ -53,5 +56,17 @@
   "dependencies": {
     "fastclick": "^1.0.6",
     "use-double-tap": "^1.3.0"
-  }
+  },
+  "directories": {
+    "example": "example"
+  },
+  "keywords": [
+    "custom",
+    "keyboard",
+    "text",
+    "suggestions",
+    "mobile",
+    "web",
+    "app"
+  ]
 }
